@@ -8,6 +8,7 @@ class VideoStreamingPlatformApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

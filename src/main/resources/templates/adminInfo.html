@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Панель администратора</title>
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a href="/login">Вход</a></li>
+      <li><a href="/register">Регистрация</a></li>
+      <li><a href="/admin-panel">Админ панель</a></li>
+      <li><a href="/video-page">Страница видео</a> </li>
+    </ul>
+  </nav>
+</header>
+<h1>Информация администратора</h1>
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Логин пользователя</th>
+    <th>Дата использования</th>
+    <th>Сообщение</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="monitoring : ${data}">
+    <td th:text="${monitoring.id}"></td>
+    <td th:text="${monitoring.userLogin}"></td>
+    <td th:text="${monitoring.useDate}"></td>
+    <td th:text="${monitoring.messageMon}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

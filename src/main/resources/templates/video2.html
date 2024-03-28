@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Page</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.4/plyr.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        #header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #video-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+        #save-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/login">Вход</a></li>
+            <li><a href="/register">Регистрация</a></li>
+            <li><a href="/admin-panel">Админ панель</a></li>
+            <li><a href="/video-page">Страница видео</a> </li>
+        </ul>
+    </nav>
+</header>
+<div id="header">
+    <div>
+        <a href="http://localhost:8080/logout" style="color: white">Выйти</a>
+    </div>
+    <div id="current-datetime"></div>
+</div>
+<div id="video-container">
+    <h1 id="video-title"></h1>
+    <video id="video-player" controls crossorigin>
+        <source src="/video2" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <a href="http://localhost:8080/videoUpload2" id="save-button">Сохранить видео</a>
+</div>
+<script src="https://cdn.plyr.io/3.6.4/plyr.js"></script>
+<script>
+    const player = new Plyr('#video-player', {
+        controls: ['play', 'progress', 'fullscreen'],
+        fullscreen: { fallback: true, allowAudio: false, iosNative: true }
+    });
+
+    function scaleVideo(amount) {
+        const video = player.elements.container.querySelector('video');
+        const currentScale = parseFloat(video.style.transform.replace('scale(', '').replace(')', '')) || 1;
+        const newScale = Math.max(0.5, Math.min(currentScale + amount, 2));
+        video.style.transform = `scale(${newScale})`;
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (document.fullscreenElement && (event.code === 'KeyO' || event.code === 'KeyL')) {
+            event.preventDefault();
+            scaleVideo(event.code === 'KeyO' ? 0.1 : -0.1);
+        }
+    });
+
+
+    const videoTitle = document.getElementById('video-title');
+    videoTitle.textContent = new Date().toLocaleString();
+
+    const currentDatetime = document.getElementById('current-datetime');
+    setInterval(() => {
+        currentDatetime.textContent = new Date().toLocaleString();
+    }, 1000);
+</script>
+</body>
+</html>
